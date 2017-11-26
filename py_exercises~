@@ -1,0 +1,57 @@
+
+
+dune@dune-desktop:~/PycharmProjects/py$ python tuts.py 
+Enter 2 numbers: 10 5
+Traceback (most recent call last):
+  File "tuts.py", line 1, in <module>
+    num1, num2 = input('Enter 2 numbers: ').split()
+  File "<string>", line 1
+    10 5
+       ^
+
+
+dune@dune-desktop:~/PycharmProjects/py$ python3.4 tuts.py 
+Enter 2 numbers: 10 5
+10 + 5 = 15
+10 - 5 = 5
+10 / 5 = 2.0
+10 % 5 = 0
+
+
+
+
+
+
+
+/usr/bin/python3.4 /home/dune/PycharmProjects/py/tuts4.py
+Enter age: 4
+Traceback (most recent call last):
+  File "/home/dune/PycharmProjects/py/tuts4.py", line 5, in <module>
+    elif (age > "5") or (age <= "17"):
+TypeError: unorderable types: int() > str()
+
+Process finished with exit code 1
+
+
+
+
+age = eval(input("Enter age: "))
+
+if (age == 5):
+    print("You go to kindergarten")
+elif (age > 5) or (age <= 17):
+    print("You go to grade 1 through 12")
+elif (age > 17):
+    print("You go to College")
+else:
+    print("You stay at home with mommy and daddy")
+
+
+
+Enter age: 4
+You go to grade 1 through 12
+
+Process finished with exit code 0
+
+
+
