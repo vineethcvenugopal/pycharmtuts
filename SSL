@@ -1,0 +1,72 @@
+SSL/TLS
+
+
+ SSL (Secure Sockets Layer) - which layer of OSI model?
+
+ TLS (Transport Layer Security)  - which layer of OSI model?
+
+1) Difference b/w SSL and TLS?
+
+   TLS uses stronger encryption algorithms and has the ability to work on different ports. 
+   Additionally, TLS version 1.0 does not interoperate with SSL version 3.0.
+
+2) Steps to apply for an SSL certificate?
+
+   
+
+3) How SSL works?
+
+   SSL works mainly through using public/private key encryption on data
+
+   Certificate - Trust by a 3rd party.
+
+
+   PKI - Public Key Infrastructure. 
+
+   OpenSSL
+
+   chain of authorities
+
+   Root cert authorities
+
+
+
+   The browser you're using right now trusts a bunch of certificate authorities. Which bunch of certificate authorities - properly called a 'root certificate store' - is determined by your OS and browser:
+
+intermediate certificate authority
+
+   The unauthorized certificates were issued by Egypt-based MCS Holdings, an intermediate certificate authority that operated under the authority of CNNIC.
+
+
+
+Digital Signature
+
+
+
+
+4) Why do we use SSL/TLS ?
+
+
+5) Self Signed Certificate / CA versus Trusted Certificate / CA
+
+
+   
+   Trusted CA root certificates are distributed with an Operating System.
+   In Windows, Root CA certs reside in something called the Certificate Store. In the Mac, they are in the KeyChain. 
+   Likely some RootCA certs (such as Google's) can be built into the Browser software
+
+
+   Since all users have access to these trusted Root CA certs, they can validate external certificates that come from any organization that has had their 
+   certificate signed by one of the trusted Root CAs (that they have in their local computer). If you self-sign your own certificate, no one can validate 
+   your certificate because they do not have access to the root CA that signed your self-signed certificate; and even if you sent that to them, 
+   it is not a publicly trusted CA and so no one should use it.
+
+   Self-signed certs are good for many things (VPN services; use in an internal organization) but not for setting up a Web service for the public using SSL
+
+
+
+
+
+
+
+
