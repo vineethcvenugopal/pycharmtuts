@@ -1,0 +1,3 @@
+we need to set the LC_ALL environment variable to get the behaviour that we would expect from sort 
+
+note on locales: LC_ALL=C affects more than what we need for sorting. later, i had problems inserting accented characters in vim with it. if setting LC_COLLATE=C instead, all is well.
