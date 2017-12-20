@@ -1,0 +1,6 @@
+How would you trace a binary deployment back to the source code ? How would you structure such a build ?
+How do you manage dependencies ?
+CI can only be used to find compile time errors quickly. True/False. Explain.
+How would you structure CD for an app that depends on 3 other apps ?
+How do you plan capacity for your CI/CD servers ?
+All your built binaries should be checked in to your git/svn for quick deployment and posteriority. True/False. Explain.

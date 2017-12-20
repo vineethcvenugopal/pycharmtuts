@@ -1,0 +1,73 @@
+Python Notes:-
+
+1. Testing your python code:-
+
+The next step, before creating actual test programs, is to run a Python code checker. The
+most popular are pylint and pyflakes . You can install either or both by using pip :
+
+$ pip install pylint
+$ pip install pyflakes
+
+
+2. Variable, assignment, 
+
+   Think of variable as a sticky note for an object. An object has type
+
+   variables are just names.
+   Assignment does not copy a value; it just attaches a name to the object that contains
+   the data. The name is a reference to a thing rather than the thing itself.
+
+
+type(x)
+Traceback (most recent call last):
+  File "/usr/lib/python3.4/code.py", line 90, in runcode
+    exec(code, self.locals)
+  File "<input>", line 1, in <module>
+NameError: name 'x' is not defined
+type('x')
+<class 'str'>
+
+
+3) In Python,
+   “class” and “type” mean pretty much the same thing.
+
+
+4) Names cannot begin with a digit. Also, Python treats names that begin with an 
+   under‐ score in special ways
+
+5) Don't use python's reserved words
+
+6)int() will make integers from floats or strings of digits, but won’t handle strings con‐
+taining decimal points or exponents:
+
+
+7) 
+
+>>> True + False
+1
+
+>>> True + 2
+3
+
+
+8)
+
+
+>>> float(True)
+1.0
+>>> float(False)
+0.0
+>>> float(1.0e5)
+100000.0
+
+
+9)
+
+Unlike other languages, strings in Python are immutable. You can’t change a string in-
+place, but you can copy parts of strings to another string to get the same effect.
+
+
+
+
+
+
