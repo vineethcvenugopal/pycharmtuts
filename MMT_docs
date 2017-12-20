@@ -1,0 +1,570 @@
+1. Github repo url:- 
+
+https://github.com/CarmaCICD/MMT
+
+Deploy 
+
+dune@dune-desktop:~/MMT$ ssh -T -ai ~/.ssh/id_rsa git@github.com
+Hi vineethcvenugopal/my-travel-plans! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+dune@dune-desktop:~/MMT$ ssh -T -ai ~/.ssh/id_rsa_MMT git@github.com
+Warning: Permanently added the RSA host key for IP address '192.30.253.113' to the list of known hosts.
+Hi CarmaCICD/MMT! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+
+
+dune@dune-desktop:~/PycharmProjects$ echo $GIT_SSH
+
+dune@dune-desktop:~/PycharmProjects$ 
+dune@dune-desktop:~/PycharmProjects$ export GIT_SSH=~/ssh-git.sh
+dune@dune-desktop:~/PycharmProjects$ 
+dune@dune-desktop:~/PycharmProjects$ echo $GIT_SSH
+/home/dune/ssh-git.sh
+dune@dune-desktop:~/PycharmProjects$ 
+dune@dune-desktop:~/PycharmProjects$ PKEY=~/.ssh/id_rsa_pycharmtuts git push origin master
+Counting objects: 17, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (17/17), done.
+Writing objects: 100% (17/17), 5.26 KiB | 0 bytes/s, done.
+Total 17 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), done.
+To git@github.com:vineethcvenugopal/pycharmtuts.git
+ * [new branch]      master -> master
+dune@dune-desktop:~/PycharmProjects$ 
+
+
+
+
+
+2. Challenges :-
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# docker-compose up -d
+Creating network "mmt5automation_default" with the default driver
+Creating mmt5automation_dba_1 ... 
+Creating mmt5automation_dba_1 ... done
+Creating mmt5automation_web_1 ... 
+Creating mmt5automation_web_1 ... done
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                             NAMES
+fa2e30d8e31d        mysql:5.5           "docker-entrypoint..."   7 seconds ago       Up 5 seconds        0.0.0.0:3306->3306/tcp, 0.0.0.0:32769->3306/tcp   mmt5automation_dba_1
+
+
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# docker inspect 81bc1b48fdaa | grep Log
+        "LogPath": "/var/lib/docker/containers/81bc1b48fdaa6f2363ed1a68c151ef1f69e6817a53c28f6353c6e9a48afd4736/81bc1b48fdaa6f2363ed1a68c151ef1f69e6817a53c28f6353c6e9a48afd4736-json.log",
+
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# cat /var/lib/docker/containers/81bc1b48fdaa6f2363ed1a68c151ef1f69e6817a53c28f6353c6e9a48afd4736/81bc1b48fdaa6f2363ed1a68c151ef1f69e6817a53c28f6353c6e9a48afd4736-json.log
+{"log":"=\u003e Booting Puma\n","stream":"stdout","time":"2017-11-25T18:38:29.430337745Z"}
+{"log":"=\u003e Rails 5.0.0.1 application starting in development on http://0.0.0.0:3000\n","stream":"stdout","time":"2017-11-25T18:38:29.430392069Z"}
+{"log":"=\u003e Run `rails server -h` for more startup options\n","stream":"stdout","time":"2017-11-25T18:38:29.430397445Z"}
+{"log":"A server is already running. Check /myapp/tmp/pids/server.pid.\n","stream":"stderr","time":"2017-11-25T18:38:30.208460073Z"}
+{"log":"Exiting\n","stream":"stdout","time":"2017-11-25T18:38:30.208579263Z"}
+
+
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# docker logs ff0735f5f6fd
+=> Booting Puma
+=> Rails 5.0.0.1 application starting in development on http://0.0.0.0:3000
+=> Run `rails server -h` for more startup options
+A server is already running. Check /myapp/tmp/pids/server.pid.
+Exiting
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# locate server.pid
+/home/ubuntu/MMT5test/MMT5_Automation/tmp/pids/server.pid
+
+
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# ls -al /home/ubuntu/MMT5test/MMT5_Automation/tmp/pids/server.pid
+-rw-r--r-- 1 root root 1 Nov 17 16:01 /home/ubuntu/MMT5test/MMT5_Automation/tmp/pids/server.pid
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# 
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# 
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# vim /home/ubuntu/MMT5test/MMT5_Automation/tmp/pids/server.pid
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# 
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# 
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# 
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# rm /home/ubuntu/MMT5test/MMT5_Automation/tmp/pids/server.pid
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# docker-compose up -d
+Creating network "mmt5automation_default" with the default driver
+Creating mmt5automation_dba_1 ... 
+Creating mmt5automation_dba_1 ... done
+Creating mmt5automation_web_1 ... 
+Creating mmt5automation_web_1 ... done
+
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# docker ps 
+CONTAINER ID        IMAGE                COMMAND                  CREATED             STATUS              PORTS                                             NAMES
+d904284ab726        mmt5automation_web   "bundle exec rails..."   3 seconds ago       Up 2 seconds        0.0.0.0:3000->3000/tcp                            mmt5automation_web_1
+b50fbf0bb004        mysql:5.5            "docker-entrypoint..."   4 seconds ago       Up 3 seconds        0.0.0.0:3306->3306/tcp, 0.0.0.0:32771->3306/tcp   mmt5automation_dba_1
+
+
+
+
+
+
+
+
+Gitlab configuration challenges:-
+
+
+502
+
+Whoops, GitLab is taking too much time to respond.
+
+Try refreshing the page, or going back and attempting the action again.
+
+Please contact your GitLab administrator if this problem persists.
+
+
+
+
+
+
+Command line instructions
+
+￼
+Git global setup
+
+git config --global user.name "Carmatec"
+git config --global user.email "vineeth@carmatec.com"
+￼
+Create a new repository
+
+git clone git@192.168.2.153:carmatec/MMT.git
+cd MMT
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+￼
+Existing folder
+
+cd existing_folder
+git init
+git remote add origin git@192.168.2.153:carmatec/MMT.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+￼
+Existing Git repository
+
+cd existing_repo
+git remote rename origin old-origin
+git remote add origin git@192.168.2.153:carmatec/MMT.git
+git push -u origin --all
+git push -u origin --tags
+
+
+
+
+root@bladerunner5:~# docker exec -it mygitlab bash
+root@gitlab:/# 
+root@gitlab:/# 
+root@gitlab:/# 
+root@gitlab:/# gitlab-ctl tail
+
+
+
+root@192:/# gitlab-ctl tail
+==> /var/log/gitlab/unicorn/unicorn_stderr.log <==
+
+
+
+
+
+
+
+root@bladerunner5:~# docker ps
+CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS                   PORTS                                                              NAMES
+2bc6dd3cd812        gitlab/gitlab-ce:latest   "/assets/wrapper"        4 minutes ago       Up 2 minutes (healthy)   0.0.0.0:443->443/tcp, 0.0.0.0:2200->22/tcp, 0.0.0.0:8000->80/tcp   yourgitlab
+
+
+Port 8000 is not allowed in the docker port range
+
+
+root@bladerunner5:~# sudo docker run --detach     --hostname 192.168.2.153     --publish 443:443 --publish 81:80 --publish 2200:22     --name thegitlab     --restart always     --volume /git/gitlab/config:/etc/gitlab     --volume /git/gitlab/logs:/var/log/gitlab     --volume /git/gitlab/data:/var/opt/gitlab     gitlab/gitlab-ce:latest
+dfd460e3672dc2557ec35260a59b18438e72ed59df546c11c4825f1af27bee34
+
+
+
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation_repo# git remote -v
+origin	git@192.168.2.153:carmatec/MMT.git (fetch)
+origin	git@192.168.2.153:carmatec/MMT.git (push)
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation_repo# git remote rm origin
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation_repo# 
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation_repo# git remote -v
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation_repo# 
+
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation_repo# git remote add origin ssh://git@192.168.2.153:2200/carmatec/MMT.git
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation_repo# git remote -v
+origin	ssh://git@192.168.2.153:2200/carmatec/MMT.git (fetch)
+origin	ssh://git@192.168.2.153:2200/carmatec/MMT.git (push)
+
+
+root@bladerunner5:~# ssh -T -ai ~/.ssh/id_rsa git@192.168.2.153 -p 2200
+Welcome to GitLab, carmatec!
+
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation_repo# git push -u origin master
+The authenticity of host '[192.168.2.153]:2200 ([192.168.2.153]:2200)' can't be established.
+ECDSA key fingerprint is aa:de:b7:71:02:4a:3a:53:6d:e0:64:ef:c3:0a:b2:0a.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '[192.168.2.153]:2200' (ECDSA) to the list of known hosts.
+Counting objects: 6475, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (5752/5752), done.
+Writing objects: 100% (6475/6475), 429.55 MiB | 14.37 MiB/s, done.
+Total 6475 (delta 851), reused 1 (delta 0)
+remote: Resolving deltas: 100% (851/851), done.
+To ssh://git@192.168.2.153:2200/carmatec/MMT.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
+
+
+http://192.168.2.153:81/carmatec/MMT
+
+
+
+
+
+Gitlab docker container challenges:-
+====================================
+
+Log snippets:-
+
+/var/log/gitlab/gitlab-rails/production_json.log
+
+
+
+
+
+# sudo docker run --detach     --hostname 192.168.2.153     --publish 443:443 --publish 81:80 --publish 2200:22     --name hashigitlab  --volume /git/gitlab/config:/etc/gitlab     --volume /git/gitlab/logs:/var/log/gitlab     --volume /git/gitlab/data:/var/opt/gitlab     gitlab/gitlab-ce:latest
+
+
+You might want to rethink about adding "--restart always" during runtime
+
+
+
+
+
+Docker Challenges:-
+==============================
+
+
+root@bladerunner5:/home/ubuntu/MMT5test/MMT5_Automation# docker run -d -u root --name jenkins     -p 8080:8080 -p 50000:50000     -v /root/jenkins:/var/jenkins_home     jenkins:1.651.1-alpine
+docker: Error response from daemon: Conflict. The container name "/jenkins" is already in use by container "488c56a455e983275236cd9ed980ca74d09faf8691ddf14343eed335b2681e5b". You have to remove (or rename) that container to be able to reuse that name.
+
+"
+
+
+How do we rename an existing container?
+
+
+
+Jenkins Questions:-
+===============================
+
+
+What is a permanent agent?
+
+
+Permanent Agent
+ 		
+Adds a plain, permanent agent to Jenkins. This is called "permanent" because Jenkins doesn’t provide higher level of integration with these agents, such as dynamic provisioning. Select this type if no other agent types apply — for example such as when you are adding a physical computer, virtual machines managed outside Jenkins, etc.
+
+
+What is an executor?
+
+
+
+
+Docker Questions:-
+=========================
+
+
+What is apparmor?
+
+
+Difference b/w mounts and binds?
+
+
+
+
+Setting up a Jenkins Slave:-
+==============================
+
+
+
+root@bladerunner2:~# sudo add-apt-repository ppa:webupd8team/java
+
+
+root@bladerunner2:~# sudo apt-get update
+
+
+root@bladerunner2:~# sudo apt-get install oracle-java8-installer
+
+
+root@bladerunner2:~# adduser --system --group --home=/var/lib/jenkins-slave --no-create-home --disabled-password --quiet --shell /bin/bash jenkins-slave
+root@bladerunner2:~# 
+root@bladerunner2:~# id jenkins-slave
+uid=105(jenkins-slave) gid=112(jenkins-slave) groups=112(jenkins-slave)
+
+
+root@bladerunner2:~# install -d -o jenkins-slave -g jenkins-slave /var/lib/jenkins-slave
+
+
+
+root@bladerunner2:~# install -d -m 700 -o jenkins-slave -g jenkins-slave /var/lib/jenkins-slave/.ssh
+
+
+
+root@bladerunner2:~# vi /var/lib/jenkins-slave/.ssh/authorized_keys
+
+
+
+root@jenkins-master:~# cat /var/lib/jenkins/.ssh/id_rsa.pub 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWLIBT+ykrK9Mafisy+XsbrtrMYre1X2UnAIb3+i9x0frqpRu7eNBDbM13R4LuajEAgXOMNHZ6VlgMBQuFBFX7HP4MM9SXT8acbg9cgfgTPiF0vcbw3rDb2+LaX4FOk1Gf1V/nm9UwF00BqMtJHDkcw2KN6TZm/5Poz+B2L7rGnlht7HmTGfZf3nO8ezIeTW0h8lWkApWdfTpB73RhQmQHpmh9zAgnVtC4c4HxWuQgjWt5dZAfR92ZhbcTVyPSWqDmHAOKOY6tY5fM2zbJOseI1kKx92FkQW2P81v6oCch8LH2Iimr4RSuSYb/06W6RUWa4okzzs+OCuKnvsuVTcvz jenkins@jenkins-master
+
+
+
+
+
+
+
+GitLab Plugin added in jenkins-master
+
+
+
+Following the instructions from:- https://medium.com/@teeks99/continuous-integration-with-jenkins-and-gitlab-fa770c62e88a
+
+
+ Gitlab API access token
+
+ EcX3i58vSCYs_H_9k_Zr
+
+
+Raised memory for the jenkins master
+
+
+[root@opennode ~]# vzctl set 104 --physpages 2500M --save
+UB limits were set successfully
+CT configuration saved to /etc/vz/conf/104.conf
+
+
+
+
+
+Jenkins-slave setup Challenges:-
+=================================
+
+
+Warning: no key algorithms provided; JENKINS-42959 disabled
+[12/02/17 08:34:07] [SSH] Opening SSH connection to :22.
+[12/02/17 08:34:12] [SSH] WARNING: No entry currently exists in the Known Hosts file for this host. Connections will be denied until this new host and its associated key is added to the Known Hosts file.
+Key exchange was not finished, connection is closed.
+java.io.IOException: There was a problem while connecting to :22
+	at com.trilead.ssh2.Connection.connect(Connection.java:818)
+	at com.trilead.ssh2.Connection.connect(Connection.java:687)
+	at com.trilead.ssh2.Connection.connect(Connection.java:601)
+	at hudson.plugins.sshslaves.SSHLauncher.openConnection(SSHLauncher.java:1284)
+	at hudson.plugins.sshslaves.SSHLauncher$2.call(SSHLauncher.java:804)
+	at hudson.plugins.sshslaves.SSHLauncher$2.call(SSHLauncher.java:793)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.io.IOException: Key exchange was not finished, connection is closed.
+	at com.trilead.ssh2.transport.KexManager.getOrWaitForConnectionInfo(KexManager.java:93)
+	at com.trilead.ssh2.transport.TransportManager.getConnectionInfo(TransportManager.java:230)
+	at com.trilead.ssh2.Connection.connect(Connection.java:770)
+	... 9 more
+Caused by: java.io.IOException: The server hostkey was not accepted by the verifier callback
+	at com.trilead.ssh2.transport.KexManager.handleMessage(KexManager.java:535)
+	at com.trilead.ssh2.transport.TransportManager.receiveLoop(TransportManager.java:777)
+	at com.trilead.ssh2.transport.TransportManager$1.run(TransportManager.java:489)
+	... 1 more
+[12/02/17 08:34:12] Launch failed - cleaning up connection
+[12/02/17 08:34:12] [SSH] Connection closed.
+
+
+
+
+
+Without host verification:-
+
+
+[12/02/17 08:39:37] [SSH] Opening SSH connection to :22.
+[12/02/17 08:39:37] [SSH] WARNING: SSH Host Keys are not being verified. Man-in-the-middle attacks may be possible against this connection.
+ERROR: Server rejected the 1 private key(s) for jenkins-slave (credentialId:c7c99de0-81b9-4932-898b-aa890ae5801c/method:publickey)
+[12/02/17 08:39:37] [SSH] Authentication failed.
+Authentication failed.
+[12/02/17 08:39:37] Launch failed - cleaning up connection
+[12/02/17 08:39:37] [SSH] Connection closed.
+
+
+
+
+
+Fix:-
+
+By downgrading the SSH Slaves  plugin
+
+Labelled the slave1 creds under "Credentials"
+
+
+
+Failed to connect to repository : Command "git ls-remote -h git@192.168.2.153:2200/carmatec/MMT.git HEAD" returned status code 128:
+stdout: 
+stderr: Host key verification failed. 
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+
+
+
+jenkins@jenkins-master:~/workspace$ git status
+fatal: Not a git repository (or any of the parent directories): .git
+
+
+enkins@jenkins-master:~/workspace$ cd -
+/var/lib/jenkins/workspace/MMT
+
+
+jenkins@jenkins-master:~/workspace/MMT$ git status
+On branch master
+
+Initial commit
+
+nothing to commit (create/copy files and use "git add" to track)
+
+
+jenkins@jenkins-master:~/workspace/MMT$ git remote add origin ssh://git@192.168.2.153:2200/carmatec/MMT.git
+jenkins@jenkins-master:~/workspace/MMT$ 
+jenkins@jenkins-master:~/workspace/MMT$ 
+jenkins@jenkins-master:~/workspace/MMT$ git remote -v
+origin	ssh://git@192.168.2.153:2200/carmatec/MMT.git (fetch)
+origin	ssh://git@192.168.2.153:2200/carmatec/MMT.git (push)
+
+
+jenkins@jenkins-master:~/workspace/MMT$ git pull
+remote: Counting objects: 6475, done.
+remote: Compressing objects: 100% (4901/4901), done.
+remote: Total 6475 (delta 851), reused 6475 (delta 851)
+Receiving objects: 100% (6475/6475), 429.55 MiB | 8.67 MiB/s, done.
+
+
+
+
+
+
+
+jenkins-slave@bladerunner2:~/workspace/MMT$ cat .git/config
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@192.168.2.153:2200/carmatec/MMT.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+jenkins-slave@bladerunner2:~/workspace/MMT$ 
+
+
+
+
+
+
+
+
+Changed the repository url in Jenkins Job MMT too -- ssh://git@192.168.2.153:2200/carmatec/MMT.git
+
+
+
+
+
+Unable to trigger build. 
+
+
+http://192.168.2.153:81/carmatec/MMT/hooks/1/test?trigger=push_events
+
+
+500
+
+Whoops, something went wrong on our end.
+
+Try refreshing the page, or going back and attempting the action again.
+
+Please contact your GitLab administrator if this problem persists.
+
+
+
+
+
+
+
+
+Hook executed successfully but returned HTTP 403 <html> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <title>Error 403 No valid crumb was included in the request</title> </head> <body><h2>HTTP ERROR 403</h2> <p>Problem accessing /job/MMT/. Reason: <pre> No valid crumb was included in the request</pre></p><hr><i><small>Powered by Jetty://</small></i><hr/> </body> </html>
+
+
+
+Disabled CSFP in Jenkins
+
+
+
+Hook executed successfully but returned HTTP 403 <html><head><meta http-equiv='refresh' content='1;url=/login?from=%2Fjob%2FMMT%2F'/><script>window.location.replace('/login?from=%2Fjob%2FMMT%2F');</script></head><body style='background-color:white; color:white;'> Authentication required <!-- You are authenticated as: anonymous Groups that you are in: Permission you need to have (but didn't): hudson.model.Hudson.Read ... which is implied by: hudson.security.Permission.GenericRead ... which is implied by: hudson.model.Hudson.Administer --> </body></html>
+
+
+
+Lost privileges in Jenkins after messing with 	"matrix-based security"  ref:-https://stackoverflow.com/questions/25394445/jenkins-authentication-fails
+
+
+Regained access after editing /var/lib/jenkins/config.xml and setting <useSecurity>false</useSecurity , restarting jenkins server.
+
+
+
+
+Hook executed successfully: HTTP 200
+
+
+
+Finally got it working after making a change 
+
+I have to copy GitLab CI Service URL: http://192.168.6.14:8080/project/MMT  and add it to the webhook url of 
+
+
+root@jenkins-master:~# tail -f /var/log/jenkins/jenkins.log
+java.lang.OutOfMemoryError: Java heap space
+
+Dec 02, 2017 1:49:51 PM hudson.triggers.SafeTimerTask run
+SEVERE: Timer task hudson.diagnosis.MemoryUsageMonitor@48dea54c failed
+java.lang.OutOfMemoryError: Java heap space
+
+Dec 02, 2017 1:50:22 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+WARNING: Error for /job/MMT/buildHistory/ajax
+java.lang.OutOfMemoryError: Java heap space
+
+
+
+
+

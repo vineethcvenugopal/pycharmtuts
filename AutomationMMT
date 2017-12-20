@@ -1,0 +1,134 @@
+1. Copied the MMT project files to our local system 192.168.2.153, location /home/ubuntu/MMT5test/MMT5_Automation
+
+2. Created Dockerfile and docker-compose.yml in /home/ubuntu/MMT5test/MMT5_Automation
+
+3. Created database.yml file in config folder, because developers have mentioned database.yml file in .gitignore so manually we have to create 		in this case.
+
+4.  Change MYSQL_* to your desired values in docker-compose.yml file. Note that the MYSQL_DATABASE database will be created when the db image 		is first built.
+
+5. RUN  docker-compose build
+
+6.  Run the following command to rebuild the image with the new gems. You should re-run this command any time you change the Gemfile.
+
+			$ docker-compose build
+
+7. Modify existing config/database.yml changing the 'host' values to "dba" (the name of the docker-compose db service)
+
+
+		Here in this rails project, host value is dba in database.yml file
+
+=================================================================
+			development: &default
+  adapter: mysql2
+  database: development
+  pool: 5
+  username: rails
+  password: password
+  host: dba
+
+test:
+  <<: *default
+database: test
+
+===================================================================
+
+8. Add rails user and grant them access to the development and test databases:
+
+		$ docker-compose run --rm dba mysql -h dba -u root -p
+
+Enter password: *****
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 40
+Server version: 5.5.54 MySQL Community Server (GPL)
+
+mysql> grant all privileges on *.* to rails@"%";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> exit
+
+9. create the dbs, load the schema.rb, and run the seed files:
+
+	$ docker-compose run --rm web bundle exec rake db:setup
+
+10. Verify that database looks good from rails console:
+
+	$ docker-compose run --rm web rails c
+
+11. Start the rails app:
+
+	$ docker-compose up
+
+
+
+The containers are deployed on IP 192.168.2.153, the MMT web app can be accessed by using the following URL
+
+http://192.168.2.153:3000/users/sign_in
+
+You can Test using the superadmin credentials.
+
+brian / MMTcarm9@
+
+
+
+====================================================================
+
+ubuntu@bladerunner5:~$ docker ps
+CONTAINER ID        IMAGE                COMMAND                  CREATED             STATUS              PORTS                                             NAMES
+01a201393a85        mmt5automation_web   "bundle exec rails..."   2 hours ago         Up 2 hours          0.0.0.0:3000->3000/tcp                            mmt5automation_web_1
+32260359266a        mysql:5.5            "docker-entrypoint..."   2 hours ago         Up 2 hours          0.0.0.0:3306->3306/tcp, 0.0.0.0:32769->3306/tcp   mmt5automation_dba_1
+
+=====================================================================
+
+DOCKER FILE
+
+FROM ruby:2.3.1
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+RUN mkdir /myapp
+WORKDIR /myapp
+ADD Gemfile /myapp/Gemfile
+ADD Gemfile.lock /myapp/Gemfile.lock
+RUN bundle install
+VOLUME /usr/local/bundle
+ADD . /myapp
+
+====================================================================================
+
+DOCKER-COMPOSE.YML
+
+
+version: '2'
+services:
+dba:
+image: mysql:5.5
+ports:
+- "3306:3306"
+- "3306"
+volumes:
+- db_data:/var/lib/mysql
+- .:/myapp
+environment:
+MYSQL_ROOT_PASSWORD: password
+MYSQL_DATABASE: development
+MYSQL_USER: rails
+MYSQL_PASSWORD: password
+
+web:
+build: .
+command: bundle exec rails s -p 3000 -b '0.0.0.0'
+volumes:
+- .:/myapp
+- web_rubygems:/usr/local/bundle
+ports:
+- "3000:3000"
+depends_on:
+- dba
+volumes:
+db_data:
+web_rubygems:
+
+==========================================================
+
+
+
+
